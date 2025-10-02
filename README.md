@@ -1,10 +1,12 @@
-# Vue GTK
+<div align="center">
+  <p align="center">
+    <a href="#">
+      <img src="./.github/assets/banner.png"/>
+    </a>
+  </p>
+</div>
 
-A Vue 3 component library inspired by the GTK design system, offering modern and accessible components for web applications.
-
-## 🚧 Development Status
-
-**⚠️ This project is currently in active development. Components and APIs may change.**
+> **⚠️ This project is currently in active development. Components and APIs may change.**
 
 ## 🚀 Installation
 
