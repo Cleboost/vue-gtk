@@ -4,6 +4,38 @@ import { ref } from "vue";
 
 const showAbout = ref(false);
 
+const creditData = [
+    {
+        name: "Code par",
+        content: [
+            {
+                type: "link",
+                texte: "Cleboost",
+                link: "https://github.com/Cleboost"
+            }
+        ]
+    },
+    {
+        name: "Design de",
+        content: [
+            {
+                type: "text",
+                texte: "Interface inspirée de GTK"
+            }
+        ]
+    },
+    {
+        name: "Icônes par",
+        content: [
+            {
+                type: "link",
+                texte: "Tabler Icons",
+                link: "https://tabler-icons.io"
+            }
+        ]
+    }
+];
+
 const openAbout = () => {
     showAbout.value = true;
 };
@@ -95,7 +127,7 @@ const handleRemerciement = () => {
             web="https://github.com/Cleboost/vue-gtk"
             issue="https://github.com/Cleboost/vue-gtk/issues"
             depannage="Troubleshooting"
-            credit="Credits"
+            :credit="creditData"
             mentionLegales="Legal"
             remerciement="Thanks"
             :show-close-button="true"
