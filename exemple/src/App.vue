@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { Switch, Button, BoxRow, RowButton, RowLink, About } from "vue-gtk";
+import { Switch, Button, BoxRow, RowButton, RowLink, About, ContextMenu } from "vue-gtk";
 import { Icon } from '@iconify/vue';
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 
 const showAbout = ref(false);
+const showContextMenu = ref(false);
+const contextMenuPosition = ref({ x: 0, y: 0 });
 
 const creditData = [
     {
@@ -85,6 +87,70 @@ const closeApp = () => {
     // In a real app, this would close the window
     alert('Application fermée !');
 };
+
+const contextMenuItems = [
+    {
+        text: "Préférences",
+        shortcut: "Ctrl+,",
+        action: () => console.log('Préférences clicked')
+    },
+    {
+        text: "Aide",
+        shortcut: "F1",
+        action: () => console.log('Aide clicked')
+    },
+    {
+        text: "Raccourcis clavier",
+        shortcut: "Ctrl+?",
+        icon: "tabler:arrow-right",
+        action: () => console.log('Raccourcis clicked')
+    },
+    {
+        text: "À propos de Vue GTK",
+        action: () => {
+            showContextMenu.value = false;
+            showAbout.value = true;
+        }
+    }
+];
+
+const openContextMenu = (event: MouseEvent) => {
+    contextMenuPosition.value = {
+        x: event.clientX,
+        y: event.clientY
+    };
+    showContextMenu.value = true;
+};
+
+const closeContextMenu = () => {
+    showContextMenu.value = false;
+};
+
+const handleContextMenuItem = (item: any, index: number) => {
+    console.log('Menu item clicked:', item.text, 'at index:', index);
+};
+
+// Gestion de la fermeture du menu contextuel
+const handleDocumentClick = (event: MouseEvent) => {
+    if (showContextMenu.value) {
+        const target = event.target as HTMLElement;
+        const isContextMenu = target.closest('.context-menu');
+        const isWindowDots = target.closest('.window-dots');
+        
+        if (!isContextMenu && !isWindowDots) {
+            closeContextMenu();
+        }
+    }
+};
+
+// Ajouter l'écouteur d'événements au montage
+onMounted(() => {
+    document.addEventListener('click', handleDocumentClick);
+});
+
+onUnmounted(() => {
+    document.removeEventListener('click', handleDocumentClick);
+});
 </script>
 
 <template>
@@ -93,7 +159,7 @@ const closeApp = () => {
             <div class="window-header">
                 <div class="window-title">Vue GTK Demo</div>
                 <div class="window-controls">
-                    <div class="window-dots">
+                    <div class="window-dots" @click="openContextMenu">
                         <div class="dot"></div>
                         <div class="dot"></div>
                         <div class="dot"></div>
@@ -175,10 +241,18 @@ const closeApp = () => {
             @depannage="handleDepannage"
             @credit="handleCredit"
             @mentionLegales="handleLegal"
-            @remerciement="handleRemerciement"
-        />
-    </main>
-</template>
+                @remerciement="handleRemerciement"
+            />
+            
+            <ContextMenu 
+                :is-visible="showContextMenu"
+                :items="contextMenuItems"
+                :position="contextMenuPosition"
+                @close="closeContextMenu"
+                @item-click="handleContextMenuItem"
+            />
+        </main>
+    </template>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cantarell:ital,wght@0,400;0,700;1,400;1,700&display=swap');
