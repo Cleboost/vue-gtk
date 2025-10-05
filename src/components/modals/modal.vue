@@ -69,13 +69,16 @@ const handleOverlayClick = () => {
     border-radius: 12px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
     width: 90%;
-    max-width: 500px;
+    max-width: 700px;
+    max-height: 80vh;
     color: white;
     position: relative;
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform-origin: center center;
 }
 
 .modal-close-button {
