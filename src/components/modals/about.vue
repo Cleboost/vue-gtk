@@ -4,17 +4,17 @@
         :show-close-button="showCloseButton"
         @close="closeModal"
     >
-        <Transition name="header-fade">
-            <div v-if="!showCredits && !showMentions && !showRemerciement" class="about-header">
-                <div class="about-icon">
-                    <Icon icon="tabler:database" />
-                </div>
-                <h1 class="about-title">{{ nom }}</h1>
-                <p v-if="auteur" class="about-author">{{ auteur }}</p>
-                <div class="version-badge">{{ version }}</div>
+
+        <div v-if="!showCredits && !showMentions && !showRemerciement" class="about-header">
+            <div class="about-icon">
+                <img v-if="icon" :src="icon" :alt="nom" class="icon-image" />
+                <Icon v-else icon="tabler:x" />
             </div>
-        </Transition>
-        
+            <h1 class="about-title">{{ nom }}</h1>
+            <p v-if="auteur" class="about-author">{{ auteur }}</p>
+            <div class="version-badge">{{ version }}</div>
+        </div>
+
         <div class="about-content" :class="{ 'expanded': showCredits || showMentions || showRemerciement }">
             <div v-if="!showCredits && !showMentions && !showRemerciement" class="about-main">
                 <BoxRow v-if="web">
@@ -78,29 +78,36 @@ interface CreditSection {
     content: CreditItem[];
 }
 
+interface RemerciementItem {
+    name: string;
+    quote: string;
+}
+
 interface Props {
     isVisible: boolean;
     nom: string;
     auteur?: string;
     version: string;
+    icon?: string;
     web?: string;
     issue?: string;
     depannage?: string;
     credit?: CreditSection[];
     mentionLegales?: string;
-    remerciement?: string;
+    remerciement?: RemerciementItem[];
     showCloseButton?: boolean;
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
     isVisible: false,
     auteur: '',
+    icon: '',
     web: '',
     issue: '',
     depannage: '',
     credit: () => [],
     mentionLegales: '',
-    remerciement: '',
+    remerciement: () => [],
     showCloseButton: true
 });
 
@@ -162,18 +169,23 @@ const closeRemerciement = () => {
     color: #4caf50;
 }
 
+.icon-image {
+    width: 128px;
+    height: 128px;
+    object-fit: contain;
+}
+
 .about-title {
     color: #ffffff;
-    font-size: 32px;
+    font-size: 24px;
     font-weight: 900;
-    margin: 0 0 0 0;
+    margin: 0 0 0px 0;
 }
 
 .about-author {
     color: #ffffff;
-    font-size: 20px;
-    font-weight: 600;
-    margin: 0 0 16px 0;
+    font-size: 16px;
+    margin: 0 0 12px 0;
 }
 
 .version-badge {
@@ -209,7 +221,6 @@ const closeRemerciement = () => {
     margin-bottom: 0;
 }
 
-/* Animation de superposition */
 .overlay-enter-active,
 .overlay-leave-active {
     transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -231,7 +242,6 @@ const closeRemerciement = () => {
     transform: translateX(0) scale(1);
 }
 
-/* Animation du header */
 .header-fade-enter-active,
 .header-fade-leave-active {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);

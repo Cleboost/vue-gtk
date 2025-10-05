@@ -8,16 +8,31 @@
         </div>
         
         <div class="remerciment-content">
-            <p class="remerciment-text">{{ remerciement }}</p>
+            <BoxRow>
+                <RowButton 
+                    v-for="(item, index) in remerciement"
+                    :key="item.name"
+                    :text="item.name" 
+                    :subtitle="item.quote"
+                    :is-last="index === remerciement.length - 1"
+                />
+            </BoxRow>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import { Icon } from '@iconify/vue';
+import BoxRow from '../../row/boxRow.vue';
+import RowButton from '../../row/rowButton.vue';
+
+interface RemerciementItem {
+    name: string;
+    quote: string;
+}
 
 interface Props {
-    remerciement: string;
+    remerciement: RemerciementItem[];
 }
 
 defineProps<Props>();
@@ -89,10 +104,11 @@ defineEmits<{
     gap: 16px;
 }
 
-.remerciment-text {
-    color: #ffffff;
-    font-size: 14px;
-    line-height: 1.6;
-    margin: 0;
+.remerciment-item {
+    margin-bottom: 16px;
+}
+
+.remerciment-item:last-child {
+    margin-bottom: 0;
 }
 </style>

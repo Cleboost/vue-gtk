@@ -9,7 +9,7 @@ const creditData = [
         name: "Code par",
         content: [
             {
-                type: "link",
+                type: "link" as const,
                 texte: "Cleboost",
                 link: "https://github.com/Cleboost"
             }
@@ -19,7 +19,7 @@ const creditData = [
         name: "Design de",
         content: [
             {
-                type: "text",
+                type: "text" as const,
                 texte: "Interface inspirée de GTK"
             }
         ]
@@ -28,11 +28,26 @@ const creditData = [
         name: "Icônes par",
         content: [
             {
-                type: "link",
+                type: "link" as const,
                 texte: "Tabler Icons",
                 link: "https://tabler-icons.io"
             }
         ]
+    }
+];
+
+const remerciementData = [
+    {
+        name: "Vue.js",
+        quote: "Framework JavaScript progressif"
+    },
+    {
+        name: "Tabler Icons",
+        quote: "Icônes open source"
+    },
+    {
+        name: "GTK",
+        quote: "Toolkit pour interfaces graphiques"
     }
 ];
 
@@ -129,7 +144,7 @@ const handleRemerciement = () => {
             depannage="Troubleshooting"
             :credit="creditData"
             mentionLegales="Legal"
-            remerciement="Thanks"
+            :remerciement="remerciementData"
             :show-close-button="true"
             @close="closeAbout"
             @depannage="handleDepannage"
