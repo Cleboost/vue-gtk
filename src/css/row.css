@@ -1,0 +1,63 @@
+.row-base {
+    width: 100%;
+    background-color: #33353B;
+    border: none;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-family: 'Cantarell', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-decoration: none;
+    color: inherit;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.row-base:not(.last-item) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.row-base.last-item {
+    border-bottom: none;
+}
+
+.row-base:hover {
+    background-color: #393B3F;
+}
+
+.row-base:active {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.row-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+}
+
+.row-text {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: left;
+}
+
+.row-subtitle {
+    color: #9ca3af;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: left;
+}
+
+.row-icon {
+    color: #ffffff;
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-left: 12px;
+}
