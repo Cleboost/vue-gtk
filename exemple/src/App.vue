@@ -92,9 +92,16 @@ const closeApp = () => {
         <div class="app-window">
             <div class="window-header">
                 <div class="window-title">Vue GTK Demo</div>
-                <button class="window-close-button" @click="closeApp">
-                    <Icon icon="tabler:x" />
-                </button>
+                <div class="window-controls">
+                    <div class="window-dots">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                    <button class="window-close-button" @click="closeApp">
+                        <Icon icon="tabler:x" />
+                    </button>
+                </div>
             </div>
             
             <div class="window-content">
@@ -222,6 +229,32 @@ body {
     font-weight: 700;
 }
 
+.window-controls {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.window-dots {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    cursor: pointer;
+    padding: 8px;
+    margin: -8px;
+}
+
+.dot {
+    width: 3px;
+    height: 3px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+}
+
 .window-close-button {
     background: rgba(26, 27, 38, 0.4);
     backdrop-filter: blur(20px);
@@ -235,10 +268,6 @@ body {
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    position: absolute;
-    right: 24px;
-    top: 50%;
-    transform: translateY(-50%);
     box-shadow: 
         0 6px 16px rgba(0, 0, 0, 0.15),
         inset 0 2px 0 rgba(255, 255, 255, 0.05),
