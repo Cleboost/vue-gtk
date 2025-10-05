@@ -33,6 +33,8 @@ const sizeClass = computed(() => `switch-${props.size}`);
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Cantarell:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 :root {
     --toggle-blue: #4285f4;
     --toggle-grey: #5a5a5a;
