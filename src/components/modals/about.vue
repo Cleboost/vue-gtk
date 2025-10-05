@@ -2,7 +2,9 @@
     <Modal 
         :is-visible="isVisible"
         :show-close-button="showCloseButton"
+        :show-back-button="showCredits || showMentions || showRemerciement"
         @close="closeModal"
+        @back="handleBack"
     >
 
         <div v-if="!showCredits && !showMentions && !showRemerciement" class="about-header">
@@ -15,8 +17,8 @@
             <div class="version-badge">{{ version }}</div>
         </div>
 
-        <div class="about-content" :class="{ 'expanded': showCredits || showMentions || showRemerciement }">
-            <div v-if="!showCredits && !showMentions && !showRemerciement" class="about-main">
+        <div class="about-content">
+            <div class="about-main">
                 <BoxRow v-if="web">
                     <RowLink v-if="web" text="Site web" :href="web" :is-last="true" />
                 </BoxRow>
@@ -41,15 +43,15 @@
                 </BoxRow>
             </div>
             
-            <Transition name="overlay" appear>
+            <Transition name="slide-overlay" appear>
                 <Credit v-if="showCredits" key="credits" :credit="credit || []" @close="closeCredits" />
             </Transition>
             
-            <Transition name="overlay" appear>
+            <Transition name="slide-overlay" appear>
                 <Mentions v-if="showMentions" key="mentions" :mention-legales="mentionLegales" @close="closeMentions" />
             </Transition>
             
-            <Transition name="overlay" appear>
+            <Transition name="slide-overlay" appear>
                 <Remerciment v-if="showRemerciement" key="remerciment" :remerciement="remerciement" @close="closeRemerciement" />
             </Transition>
         </div>
@@ -154,6 +156,16 @@ const handleAcknowledgements = () => {
 const closeRemerciement = () => {
     showRemerciement.value = false;
 };
+
+const handleBack = () => {
+    if (showCredits.value) {
+        closeCredits();
+    } else if (showMentions.value) {
+        closeMentions();
+    } else if (showRemerciement.value) {
+        closeRemerciement();
+    }
+};
 </script>
 
 <style scoped>
@@ -205,12 +217,11 @@ const closeRemerciement = () => {
     overflow: hidden;
     position: relative;
     min-height: 200px;
-    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    transform-origin: center center;
 }
 
-.about-content.expanded {
-    min-height: 500px;
+.about-main {
+    position: relative;
+    z-index: 1;
 }
 
 .about-content :deep(.box-row) {
@@ -221,25 +232,25 @@ const closeRemerciement = () => {
     margin-bottom: 0;
 }
 
-.overlay-enter-active,
-.overlay-leave-active {
-    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+.slide-overlay-enter-active,
+.slide-overlay-leave-active {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.overlay-enter-from {
+.slide-overlay-enter-from {
     opacity: 0;
-    transform: translateX(100%) scale(0.9);
+    transform: translateX(100%);
 }
 
-.overlay-leave-to {
+.slide-overlay-leave-to {
     opacity: 0;
-    transform: translateX(100%) scale(0.9);
+    transform: translateX(100%);
 }
 
-.overlay-enter-to,
-.overlay-leave-from {
+.slide-overlay-enter-to,
+.slide-overlay-leave-from {
     opacity: 1;
-    transform: translateX(0) scale(1);
+    transform: translateX(0);
 }
 
 .header-fade-enter-active,

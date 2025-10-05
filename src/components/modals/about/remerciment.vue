@@ -1,12 +1,5 @@
 <template>
-    <div class="about-remerciment">
-        <div class="remerciment-header">
-            <button class="back-button" @click="$emit('close')">
-                <Icon icon="tabler:arrow-left" />
-            </button>
-            <h2 class="remerciment-title">Remerciements</h2>
-        </div>
-        
+    <div class="about-remerciment">        
         <div class="remerciment-content">
             <BoxRow>
                 <RowButton 
@@ -22,7 +15,6 @@
 </template>
 
 <script setup lang="ts">
-import { Icon } from '@iconify/vue';
 import BoxRow from '../../row/boxRow.vue';
 import RowButton from '../../row/rowButton.vue';
 
@@ -53,7 +45,7 @@ defineEmits<{
     bottom: 0;
     background-color: #26282D;
     border-radius: 12px;
-    padding: 20px;
+    padding: 20px 0 0 0;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -62,15 +54,33 @@ defineEmits<{
     box-sizing: border-box;
     overflow-y: auto;
     max-height: 70vh;
-    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    transform-origin: center center;
 }
 
 .remerciment-header {
     display: flex;
     align-items: center;
-    gap: 12px;
+    justify-content: space-between;
     margin-bottom: 8px;
+    margin-top: -35px;
+    padding-top: 0;
+    padding-right: 50px;
+    flex-wrap: nowrap;
+    position: relative;
+    height: 40px;
+}
+
+.remerciment-title {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    text-align: center;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .back-button {
@@ -85,6 +95,10 @@ defineEmits<{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.spacer {
+    width: 36px;
 }
 
 .back-button:hover {

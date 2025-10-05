@@ -10,6 +10,13 @@
                     >
                         <Icon icon="tabler:x" />
                     </button>
+                    <button 
+                        v-if="showBackButton" 
+                        class="modal-back-button" 
+                        @click="handleBack"
+                    >
+                        <Icon icon="tabler:arrow-left" />
+                    </button>
                     <slot></slot>
                 </div>
             </Transition>
@@ -23,20 +30,27 @@ import { Icon } from '@iconify/vue';
 interface Props {
     isVisible: boolean;
     showCloseButton?: boolean;
+    showBackButton?: boolean;
     closeOnOverlay?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
     showCloseButton: true,
+    showBackButton: false,
     closeOnOverlay: true
 });
 
 const emit = defineEmits<{
     close: [];
+    back: [];
 }>();
 
 const handleClose = () => {
     emit('close');
+};
+
+const handleBack = () => {
+    emit('back');
 };
 
 const handleOverlayClick = () => {
@@ -94,7 +108,29 @@ const handleOverlayClick = () => {
     padding: 5px;
     line-height: 1;
     transition: color 0.2s ease;
-    z-index: 10;
+    z-index: 100;
+}
+
+.modal-back-button {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-back-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .modal-close-button:hover {
