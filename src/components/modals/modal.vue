@@ -68,8 +68,9 @@ const handleOverlayClick = () => {
     border: 1px solid #35353B;
     border-radius: 12px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-    width: 90%;
-    max-width: 700px;
+    width: auto;
+    min-width: 300px;
+    max-width: 90vw;
     max-height: 80vh;
     color: white;
     position: relative;
