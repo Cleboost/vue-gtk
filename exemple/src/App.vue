@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Switch, Button } from "vue-gtk";
+import { Switch, Button, BoxRow, RowButton, RowLink } from "vue-gtk";
 </script>
 
 <template>
@@ -36,6 +36,18 @@ import { Switch, Button } from "vue-gtk";
                     <div class="button-row">
                         <Button>Ajouter des fichiers</Button>
                     </div>
+                </div>
+            </section>
+
+            <section class="component-section">
+                <h2>Row Components</h2>
+                <div class="component-demo">
+                    <BoxRow>
+                        <RowButton text="Credits" subtitle="About the developers" />
+                        <RowLink text="GitHub Repository" href="https://github.com/Cleboost/vue-gtk" subtitle="Source code on GitHub" />
+                        <RowLink text="Documentation" href="https://vuejs.org" subtitle="Official Vue.js docs" />
+                        <RowButton text="Legal" :is-last="true" />
+                    </BoxRow>
                 </div>
             </section>
         </div>
