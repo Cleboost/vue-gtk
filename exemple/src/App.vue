@@ -1,11 +1,45 @@
 <script setup lang="ts">
-import { Switch, Button, BoxRow, RowButton, RowLink } from "vue-gtk";
+import { Switch, Button, BoxRow, RowButton, RowLink, About } from "vue-gtk";
+import { ref } from "vue";
+
+const showAbout = ref(false);
+
+const openAbout = () => {
+    showAbout.value = true;
+};
+
+const closeAbout = () => {
+    showAbout.value = false;
+};
+
+const handleDepannage = () => {
+    console.log('Dépannage clicked');
+    // Navigation logic here
+};
+
+const handleCredit = () => {
+    console.log('Credits clicked');
+    // Navigation logic here
+};
+
+const handleLegal = () => {
+    console.log('Legal clicked');
+    // Navigation logic here
+};
+
+const handleRemerciement = () => {
+    console.log('Remerciement clicked');
+    // Navigation logic here
+};
 </script>
 
 <template>
     <main>
         <div class="demo-container">
-            <h1>Vue GTK Components</h1>
+            <div class="header-section">
+                <h1>Vue GTK Components</h1>
+                <Button @click="openAbout">About</Button>
+            </div>
             
             <section class="component-section">
                 <h2>Switch</h2>
@@ -51,6 +85,26 @@ import { Switch, Button, BoxRow, RowButton, RowLink } from "vue-gtk";
                 </div>
             </section>
         </div>
+        
+        <!-- About Modal -->
+        <About 
+            :is-visible="showAbout"
+            nom="Vue GTK"
+            auteur="Cleboost"
+            version="0.1.0"
+            web="https://github.com/Cleboost/vue-gtk"
+            issue="https://github.com/Cleboost/vue-gtk/issues"
+            depannage="Troubleshooting"
+            credit="Credits"
+            mentionLegales="Legal"
+            remerciement="Thanks"
+            :show-close-button="true"
+            @close="closeAbout"
+            @depannage="handleDepannage"
+            @credit="handleCredit"
+            @mentionLegales="handleLegal"
+            @remerciement="handleRemerciement"
+        />
     </main>
 </template>
 
@@ -71,9 +125,15 @@ body {
     padding: 40px 20px;
 }
 
-h1 {
-    text-align: center;
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 40px;
+}
+
+h1 {
+    margin: 0;
     color: #fff;
     font-size: 2.5rem;
     font-weight: 600;
