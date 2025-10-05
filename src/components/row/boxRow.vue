@@ -14,5 +14,6 @@
     background-color: #2d2d2d;
     border-radius: 12px;
     overflow: hidden;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
 }
 </style>
