@@ -23,7 +23,7 @@
           {
             "group": "Components",
             "pages": [
-              "components/sswitch",
+              "components/switch",
               "components/button",
               "components/row"
             ]
