@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Switch, Button, Input, TextArea, SpinButton, Slider, Spinner, ProgressBar, BoxRow, RowButton, RowLink, RowSwitch, RowCustom, About, AlertDialog, ContextMenu } from "vue-gtk";
+import { Switch, Button, Input, TextArea, Shortcut, SpinButton, Slider, Spinner, ProgressBar, BoxRow, RowButton, RowLink, RowSwitch, RowCustom, RowShortcut, About, AlertDialog, ShortcutDialog, ContextMenu } from "vue-gtk";
 import { Icon } from '@iconify/vue';
 import { ref, onMounted, onUnmounted } from "vue";
 
@@ -8,6 +8,7 @@ const showContextMenu = ref(false);
 const contextMenuPosition = ref({ x: 0, y: 0 });
 const darkModeEnabled = ref(false);
 const showAlertDialog = ref(false);
+const showShortcutDialog = ref(false);
 const inputValue = ref('Entry');
 const textAreaValue = ref('');
 const spinValue = ref(0);
@@ -77,6 +78,51 @@ const remerciementData = [
     }
 ];
 
+const shortcutData = [
+    {
+        name: "General",
+        content: [
+            {
+                name: "Copy",
+                content: ["Ctrl", "C"]
+            },
+            {
+                name: "Paste",
+                content: ["Ctrl", "V"]
+            },
+            {
+                name: "Cut",
+                content: ["Ctrl", "X"]
+            },
+            {
+                name: "Undo",
+                content: ["Ctrl", "Z"]
+            }
+        ]
+    },
+    {
+        name: "Navigation",
+        content: [
+            {
+                name: "New Tab",
+                content: ["Ctrl", "T"]
+            },
+            {
+                name: "Close Tab",
+                content: ["Ctrl", "W"]
+            },
+            {
+                name: "Next Tab",
+                content: ["Ctrl", "Tab"]
+            },
+            {
+                name: "Previous Tab",
+                content: ["Ctrl", "Shift", "Tab"]
+            }
+        ]
+    }
+];
+
 const openAbout = () => {
     showAbout.value = true;
 };
@@ -121,7 +167,10 @@ const contextMenuItems = [
         text: "Raccourcis clavier",
         shortcut: "Ctrl+?",
         icon: "tabler:arrow-right",
-        action: () => console.log('Raccourcis clicked')
+        action: () => {
+            showContextMenu.value = false;
+            showShortcutDialog.value = true;
+        }
     },
     {
         text: "À propos de Vue GTK",
@@ -245,6 +294,8 @@ onUnmounted(() => {
                         <RowSwitch text="Dark Mode" subtitle="Enable dark theme" v-model="darkModeEnabled" />
                         <RowLink text="GitHub Repository" href="https://github.com/Cleboost/vue-gtk" subtitle="Source code on GitHub" />
                         <RowLink text="Documentation" href="https://vuejs.org" subtitle="Official Vue.js docs" />
+                        <RowShortcut title="Copy" description="Copy selected text" :keys="['Ctrl', 'C']" />
+                        <RowShortcut title="Paste" description="Paste from clipboard" :keys="['Ctrl', 'V']" />
                         <RowCustom>
                             <div class="custom-row-content">
                                 <span class="custom-main-text">Custom Content</span>
@@ -305,6 +356,30 @@ onUnmounted(() => {
             </section>
 
             <section class="component-section">
+                <h2>Shortcut</h2>
+                <div class="component-demo">
+                    <div class="input-row">
+                        <Shortcut text="Ctrl" />
+                        <Shortcut text="Alt" />
+                        <Shortcut text="Shift" />
+                        <Shortcut text="Enter" />
+                    </div>
+                    
+                    <div class="input-row">
+                        <Shortcut text="Ctrl" size="small" />
+                        <Shortcut text="Alt" size="medium" />
+                        <Shortcut text="Shift" size="large" />
+                    </div>
+                    
+                    <div class="input-row">
+                        <Shortcut text="Ctrl" />
+                        <Shortcut text="Alt" />
+                        <Shortcut text="Shift" />
+                    </div>
+                </div>
+            </section>
+
+            <section class="component-section">
                 <h2>Text Area</h2>
                 <div class="component-demo">
                     <div class="input-row">
@@ -340,6 +415,7 @@ onUnmounted(() => {
                     <Button @click="showAlertDialog = true">Open Alert Dialog</Button>
                 </div>
             </section>
+
                 </div>
             </div>
         </div>
@@ -370,6 +446,12 @@ onUnmounted(() => {
                 @close="showAlertDialog = false"
                 @cancel="() => console.log('Cancelled')"
                 @confirm="() => console.log('Confirmed')"
+            />
+            
+            <ShortcutDialog
+                :is-visible="showShortcutDialog"
+                :shortcuts="shortcutData"
+                @close="showShortcutDialog = false"
             />
             
             <ContextMenu 
