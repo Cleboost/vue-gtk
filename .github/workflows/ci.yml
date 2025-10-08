@@ -25,3 +25,23 @@ jobs:
 
       - name: Build example
         run: cd exemple && bun run build
+
+      - name: Build Summary
+        if: success()
+        run: |
+          echo "## ✅ Build Status: Success" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "All builds completed successfully!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Build Details" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Library build: **Success**" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Example build: **Success**" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "No errors detected. Ready to merge! 🚀" >> $GITHUB_STEP_SUMMARY
+
+      - name: Build Failed Summary
+        if: failure()
+        run: |
+          echo "## ❌ Build Status: Failed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "One or more builds failed. Please check the logs above for details." >> $GITHUB_STEP_SUMMARY
