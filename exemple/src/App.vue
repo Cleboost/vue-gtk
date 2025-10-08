@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { Switch, Button, BoxRow, RowButton, RowLink, About, ContextMenu } from "vue-gtk";
+import { Switch, Button, BoxRow, RowButton, RowLink, RowSwitch, About, ContextMenu } from "vue-gtk";
 import { Icon } from '@iconify/vue';
 import { ref, onMounted, onUnmounted } from "vue";
 
 const showAbout = ref(false);
 const showContextMenu = ref(false);
 const contextMenuPosition = ref({ x: 0, y: 0 });
+const darkModeEnabled = ref(false);
 
 const creditData = [
     {
@@ -213,6 +214,7 @@ onUnmounted(() => {
                 <div class="component-demo">
                     <BoxRow>
                         <RowButton text="Credits" subtitle="About the developers" />
+                        <RowSwitch text="Dark Mode" subtitle="Enable dark theme" v-model="darkModeEnabled" />
                         <RowLink text="GitHub Repository" href="https://github.com/Cleboost/vue-gtk" subtitle="Source code on GitHub" />
                         <RowLink text="Documentation" href="https://vuejs.org" subtitle="Official Vue.js docs" />
                         <RowButton text="Legal" :is-last="true" />
