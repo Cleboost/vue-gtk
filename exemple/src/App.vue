@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Switch, Button, BoxRow, RowButton, RowLink, RowSwitch, RowCustom, About, AlertDialog, ContextMenu } from "vue-gtk";
+import { Switch, Button, Input, BoxRow, RowButton, RowLink, RowSwitch, RowCustom, About, AlertDialog, ContextMenu } from "vue-gtk";
 import { Icon } from '@iconify/vue';
 import { ref, onMounted, onUnmounted } from "vue";
 
@@ -8,6 +8,7 @@ const showContextMenu = ref(false);
 const contextMenuPosition = ref({ x: 0, y: 0 });
 const darkModeEnabled = ref(false);
 const showAlertDialog = ref(false);
+const inputValue = ref('Entry');
 
 const creditData = [
     {
@@ -233,6 +234,28 @@ onUnmounted(() => {
                         </RowCustom>
                         <RowButton text="Legal" :is-last="true" />
                     </BoxRow>
+                </div>
+            </section>
+
+            <section class="component-section">
+                <h2>Input</h2>
+                <div class="component-demo">
+                    <div class="input-row">
+                        <Input v-model="inputValue" placeholder="Enter text..." @enter="() => console.log('Enter pressed!')" />
+                        <Input placeholder="Email" type="email" @enter="() => console.log('Email entered!')" />
+                        <Input placeholder="Password" type="password" @enter="() => console.log('Password entered!')" />
+                        <Input placeholder="Search" type="search" @enter="() => console.log('Search submitted!')" />
+                    </div>
+                    
+                    <div class="input-row">
+                        <Input size="small" placeholder="Small input" />
+                        <Input size="medium" placeholder="Medium input" />
+                        <Input size="large" placeholder="Large input" />
+                    </div>
+                    
+                    <div class="input-row">
+                        <Input v-model="inputValue" disabled placeholder="Disabled input" />
+                    </div>
                 </div>
             </section>
 
@@ -473,6 +496,14 @@ h1 {
     gap: 16px;
     align-items: center;
     flex-wrap: wrap;
+}
+
+.input-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
 }
 
 .custom-row-content {
