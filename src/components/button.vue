@@ -1,7 +1,7 @@
 <template>
     <button 
         class="gtk-button" 
-        :class="[sizeClass, variantClass]"
+        :class="[sizeClass, variantClass, roundnessClass]"
         :disabled="disabled"
         @click="$emit('click', $event)"
     >
@@ -14,13 +14,15 @@ import { computed } from "vue";
 
 interface Props {
     size?: 'small' | 'medium' | 'large';
-    variant?: 'primary' | 'secondary' | 'outline';
+    variant?: 'primary' | 'secondary' | 'outline' | 'danger';
+    roundness?: 'square' | 'rounded' | 'pill';
     disabled?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
     size: 'medium',
     variant: 'primary',
+    roundness: 'pill',
     disabled: false
 });
 
@@ -30,6 +32,7 @@ const emit = defineEmits<{
 
 const sizeClass = computed(() => `button-${props.size}`);
 const variantClass = computed(() => `button-${props.variant}`);
+const roundnessClass = computed(() => `button-${props.roundness}`);
 </script>
 
 <style scoped>
@@ -38,13 +41,13 @@ const variantClass = computed(() => `button-${props.variant}`);
     align-items: center;
     justify-content: center;
     border: none;
-    border-radius: 30px;
     font-family: 'Cantarell', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-weight: 500;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     user-select: none;
     text-decoration: none;
     outline: none;
+    cursor: pointer;
 }
 
 .gtk-button:focus-visible {
@@ -91,14 +94,13 @@ const variantClass = computed(() => `button-${props.variant}`);
 }
 
 .button-secondary {
-    background-color: #f8f9fa;
-    color: #333;
-    border: 1px solid #e9ecef;
+    background-color: #494A50;
+    color: #F4F5F6;
 }
 
 .button-secondary:hover:not(:disabled) {
-    background-color: #e9ecef;
-    border-color: #dee2e6;
+    background-color: #595A60;
+    border-color: #595A60;
 }
 
 .button-outline {
@@ -110,5 +112,32 @@ const variantClass = computed(() => `button-${props.variant}`);
 .button-outline:hover:not(:disabled) {
     background-color: #488EE3;
     color: white;
+}
+
+.button-danger {
+    background-color: #5B4549;
+    color: #F6928D;
+}
+
+.button-danger:hover:not(:disabled) {
+    background-color: #6B5559;
+    box-shadow: 0 2px 6px rgba(91, 69, 73, 0.3);
+}
+
+.button-danger:active:not(:disabled) {
+    background-color: #4B3539;
+    box-shadow: 0 1px 3px rgba(91, 69, 73, 0.2);
+}
+
+.button-square {
+    border-radius: 6px;
+}
+
+.button-rounded {
+    border-radius: 12px;
+}
+
+.button-pill {
+    border-radius: 30px;
 }
 </style>

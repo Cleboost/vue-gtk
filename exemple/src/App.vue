@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Switch, Button, BoxRow, RowButton, RowLink, RowSwitch, RowCustom, About, ContextMenu } from "vue-gtk";
+import { Switch, Button, BoxRow, RowButton, RowLink, RowSwitch, RowCustom, About, AlertDialog, ContextMenu } from "vue-gtk";
 import { Icon } from '@iconify/vue';
 import { ref, onMounted, onUnmounted } from "vue";
 
@@ -7,6 +7,7 @@ const showAbout = ref(false);
 const showContextMenu = ref(false);
 const contextMenuPosition = ref({ x: 0, y: 0 });
 const darkModeEnabled = ref(false);
+const showAlertDialog = ref(false);
 
 const creditData = [
     {
@@ -201,6 +202,13 @@ onUnmounted(() => {
                         <Button variant="primary">Primary Button</Button>
                         <Button variant="secondary">Secondary Button</Button>
                         <Button variant="outline">Outline Button</Button>
+                        <Button variant="danger">Danger Button</Button>
+                    </div>
+                    
+                    <div class="button-row">
+                        <Button roundness="square">Square</Button>
+                        <Button roundness="rounded">Rounded</Button>
+                        <Button roundness="pill">Pill</Button>
                     </div>
                     
                     <div class="button-row">
@@ -227,6 +235,13 @@ onUnmounted(() => {
                     </BoxRow>
                 </div>
             </section>
+
+            <section class="component-section">
+                <h2>Alert Dialog</h2>
+                <div class="component-demo">
+                    <Button @click="showAlertDialog = true">Open Alert Dialog</Button>
+                </div>
+            </section>
                 </div>
             </div>
         </div>
@@ -249,6 +264,14 @@ onUnmounted(() => {
             @credit="handleCredit"
             @mentionLegales="handleLegal"
                 @remerciement="handleRemerciement"
+            />
+            
+            <!-- Alert Dialog -->
+            <AlertDialog
+                :is-visible="showAlertDialog"
+                @close="showAlertDialog = false"
+                @cancel="() => console.log('Cancelled')"
+                @confirm="() => console.log('Confirmed')"
             />
             
             <ContextMenu 
