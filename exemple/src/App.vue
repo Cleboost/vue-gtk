@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Switch, Button, Input, SpinButton, Slider, BoxRow, RowButton, RowLink, RowSwitch, RowCustom, About, AlertDialog, ContextMenu } from "vue-gtk";
+import { Switch, Button, Input, SpinButton, Slider, Spinner, BoxRow, RowButton, RowLink, RowSwitch, RowCustom, About, AlertDialog, ContextMenu } from "vue-gtk";
 import { Icon } from '@iconify/vue';
 import { ref, onMounted, onUnmounted } from "vue";
 
@@ -283,6 +283,17 @@ onUnmounted(() => {
                             <Slider v-model="sliderValue" orientation="vertical" size="large" />
                             <span class="slider-label">Vertical Scale</span>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="component-section">
+                <h2>Spinner</h2>
+                <div class="component-demo">
+                    <div class="input-row">
+                        <Spinner color="#ffffff" speed="slow" size="small" />
+                        <Spinner color="#ffffff" speed="normal" size="small" />
+                        <Spinner color="#ffffff" speed="fast" size="small" />
                     </div>
                 </div>
             </section>
