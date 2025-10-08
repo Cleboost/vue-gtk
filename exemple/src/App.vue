@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Switch, Button, BoxRow, RowButton, RowLink, RowSwitch, About, ContextMenu } from "vue-gtk";
+import { Switch, Button, BoxRow, RowButton, RowLink, RowSwitch, RowCustom, About, ContextMenu } from "vue-gtk";
 import { Icon } from '@iconify/vue';
 import { ref, onMounted, onUnmounted } from "vue";
 
@@ -217,6 +217,12 @@ onUnmounted(() => {
                         <RowSwitch text="Dark Mode" subtitle="Enable dark theme" v-model="darkModeEnabled" />
                         <RowLink text="GitHub Repository" href="https://github.com/Cleboost/vue-gtk" subtitle="Source code on GitHub" />
                         <RowLink text="Documentation" href="https://vuejs.org" subtitle="Official Vue.js docs" />
+                        <RowCustom>
+                            <div class="custom-row-content">
+                                <span class="custom-main-text">Custom Content</span>
+                                <span class="custom-sub-text">Personnalisé</span>
+                            </div>
+                        </RowCustom>
                         <RowButton text="Legal" :is-last="true" />
                     </BoxRow>
                 </div>
@@ -444,5 +450,21 @@ h1 {
     gap: 16px;
     align-items: center;
     flex-wrap: wrap;
+}
+
+.custom-row-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.custom-main-text {
+    color: white;
+}
+
+.custom-sub-text {
+    color: #888;
+    font-size: 14px;
 }
 </style>
