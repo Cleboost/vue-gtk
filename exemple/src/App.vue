@@ -174,7 +174,6 @@ onUnmounted(() => {
                 <div class="demo-container">
                     <div class="header-section">
                         <h1>Vue GTK Components</h1>
-                        <Button @click="openAbout">About</Button>
                     </div>
             
             <section class="component-section">
