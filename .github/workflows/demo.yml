@@ -1,4 +1,4 @@
-name: Deploy demo components
+name: Deploy - Demo Components
 
 on:
   push:
