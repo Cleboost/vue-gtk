@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Switch, Button, Input, SpinButton, BoxRow, RowButton, RowLink, RowSwitch, RowCustom, About, AlertDialog, ContextMenu } from "vue-gtk";
+import { Switch, Button, Input, SpinButton, Slider, BoxRow, RowButton, RowLink, RowSwitch, RowCustom, About, AlertDialog, ContextMenu } from "vue-gtk";
 import { Icon } from '@iconify/vue';
 import { ref, onMounted, onUnmounted } from "vue";
 
@@ -10,6 +10,7 @@ const darkModeEnabled = ref(false);
 const showAlertDialog = ref(false);
 const inputValue = ref('Entry');
 const spinValue = ref(0);
+const sliderValue = ref(30);
 
 const creditData = [
     {
@@ -266,6 +267,22 @@ onUnmounted(() => {
                     <div class="input-row">
                         <SpinButton v-model="spinValue" />
                         <SpinButton v-model="spinValue" :min="0" :max="100" />
+                    </div>
+                </div>
+            </section>
+
+            <section class="component-section">
+                <h2>Slider</h2>
+                <div class="component-demo">
+                    <div class="input-row">
+                        <div class="slider-demo">
+                            <Slider v-model="sliderValue" />
+                            <span class="slider-label">Horizontal Scale</span>
+                        </div>
+                        <div class="slider-demo">
+                            <Slider v-model="sliderValue" orientation="vertical" size="large" />
+                            <span class="slider-label">Vertical Scale</span>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -531,5 +548,19 @@ h1 {
 .custom-sub-text {
     color: #888;
     font-size: 14px;
+}
+
+.slider-demo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-height: 200px;
+}
+
+.slider-label {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
 }
 </style>
