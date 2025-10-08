@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Switch, Button, Input, SpinButton, Slider, Spinner, BoxRow, RowButton, RowLink, RowSwitch, RowCustom, About, AlertDialog, ContextMenu } from "vue-gtk";
+import { Switch, Button, Input, SpinButton, Slider, Spinner, ProgressBar, BoxRow, RowButton, RowLink, RowSwitch, RowCustom, About, AlertDialog, ContextMenu } from "vue-gtk";
 import { Icon } from '@iconify/vue';
 import { ref, onMounted, onUnmounted } from "vue";
 
@@ -11,6 +11,24 @@ const showAlertDialog = ref(false);
 const inputValue = ref('Entry');
 const spinValue = ref(0);
 const sliderValue = ref(30);
+const progressValue = ref(0);
+
+// Animation du progress bar
+const animateProgress = () => {
+    const interval = setInterval(() => {
+        progressValue.value += 1;
+        if (progressValue.value >= 100) {
+            progressValue.value = 0;
+        }
+    }, 50);
+    
+    return interval;
+};
+
+onMounted(() => {
+    document.addEventListener('click', handleDocumentClick);
+    animateProgress();
+});
 
 const creditData = [
     {
@@ -148,13 +166,18 @@ const handleDocumentClick = (event: MouseEvent) => {
     }
 };
 
-// Ajouter l'écouteur d'événements au montage
+let progressInterval: NodeJS.Timeout | null = null;
+
 onMounted(() => {
     document.addEventListener('click', handleDocumentClick);
+    progressInterval = animateProgress();
 });
 
 onUnmounted(() => {
     document.removeEventListener('click', handleDocumentClick);
+    if (progressInterval) {
+        clearInterval(progressInterval);
+    }
 });
 </script>
 
@@ -283,6 +306,16 @@ onUnmounted(() => {
                             <Slider v-model="sliderValue" orientation="vertical" size="large" />
                             <span class="slider-label">Vertical Scale</span>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="component-section">
+                <h2>Progress Bar</h2>
+                <div class="component-demo">
+                    <div class="input-row">
+                        <ProgressBar v-model="progressValue" variant="linear" size="small" :show-label="false" />
+                        <ProgressBar v-model="progressValue" variant="circle" size="small" :show-label="false" />
                     </div>
                 </div>
             </section>

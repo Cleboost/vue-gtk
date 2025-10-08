@@ -6,6 +6,7 @@ import Input from "./components/input.vue";
 import SpinButton from "./components/spinButton.vue";
 import Slider from "./components/slider.vue";
 import Spinner from "./components/spinner.vue";
+import ProgressBar from "./components/progressBar.vue";
 import RowButton from "./components/row/rowButton.vue";
 import RowLink from "./components/row/rowLink.vue";
 import RowSwitch from "./components/row/rowSwitch.vue";
@@ -16,4 +17,4 @@ import About from "./components/modals/about.vue";
 import AlertDialog from "./components/modals/alertDialog.vue";
 import ContextMenu from "./components/contextMenu.vue";
 
-export { Switch, Button, Input, SpinButton, Slider, Spinner, RowButton, RowLink, RowSwitch, RowCustom, BoxRow, Modal, About, AlertDialog, ContextMenu };
+export { Switch, Button, Input, SpinButton, Slider, Spinner, ProgressBar, RowButton, RowLink, RowSwitch, RowCustom, BoxRow, Modal, About, AlertDialog, ContextMenu };
