@@ -3,6 +3,8 @@ name: Deploy demo components
 on:
   push:
     branches: ["master"]
+    paths-ignore:
+      - 'docs/**'
   workflow_dispatch:
 
 permissions:
