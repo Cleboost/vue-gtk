@@ -1,6 +1,6 @@
 <template>
     <div class="input-wrapper" :class="[sizeClass, { 'has-icon-left': type === 'search', 'has-icon-right': type === 'password' }]">
-        <Icon v-if="type === 'search'" icon="tabler:search" class="input-icon input-icon-left" />
+        <FolderSavedSearchSymbolic v-if="type === 'search'" icon="tabler:search" class="input-icon input-icon-left" />
         <input 
             :type="currentType"
             :placeholder="placeholder"
@@ -12,13 +12,14 @@
             @blur="handleBlur"
             @keydown="handleKeydown"
         />
-        <Icon v-if="type === 'password'" :icon="showPassword ? 'tabler:eye' : 'tabler:eye-off'" class="input-icon input-icon-right" @click="togglePasswordVisibility" />
+         <DialogPasswordSymbolic v-if="type === 'password'" class="input-icon input-icon-right" @click="togglePasswordVisibility" />
     </div>
 </template>
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { Icon } from '@iconify/vue';
+import { FolderSavedSearchSymbolic, DialogPasswordSymbolic } from 'symbolic-icons';
 
 interface Props {
     modelValue?: string;
