@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Switch, Button, Input, BoxRow, RowButton, RowLink, RowSwitch, RowCustom, About, AlertDialog, ContextMenu } from "vue-gtk";
+import { Switch, Button, Input, SpinButton, BoxRow, RowButton, RowLink, RowSwitch, RowCustom, About, AlertDialog, ContextMenu } from "vue-gtk";
 import { Icon } from '@iconify/vue';
 import { ref, onMounted, onUnmounted } from "vue";
 
@@ -9,6 +9,7 @@ const contextMenuPosition = ref({ x: 0, y: 0 });
 const darkModeEnabled = ref(false);
 const showAlertDialog = ref(false);
 const inputValue = ref('Entry');
+const spinValue = ref(0);
 
 const creditData = [
     {
@@ -255,6 +256,16 @@ onUnmounted(() => {
                     
                     <div class="input-row">
                         <Input v-model="inputValue" disabled placeholder="Disabled input" />
+                    </div>
+                </div>
+            </section>
+
+            <section class="component-section">
+                <h2>Spin Button</h2>
+                <div class="component-demo">
+                    <div class="input-row">
+                        <SpinButton v-model="spinValue" />
+                        <SpinButton v-model="spinValue" :min="0" :max="100" />
                     </div>
                 </div>
             </section>
