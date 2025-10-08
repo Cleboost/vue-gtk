@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Switch, Button, Input, SpinButton, Slider, Spinner, ProgressBar, BoxRow, RowButton, RowLink, RowSwitch, RowCustom, About, AlertDialog, ContextMenu } from "vue-gtk";
+import { Switch, Button, Input, TextArea, SpinButton, Slider, Spinner, ProgressBar, BoxRow, RowButton, RowLink, RowSwitch, RowCustom, About, AlertDialog, ContextMenu } from "vue-gtk";
 import { Icon } from '@iconify/vue';
 import { ref, onMounted, onUnmounted } from "vue";
 
@@ -9,6 +9,7 @@ const contextMenuPosition = ref({ x: 0, y: 0 });
 const darkModeEnabled = ref(false);
 const showAlertDialog = ref(false);
 const inputValue = ref('Entry');
+const textAreaValue = ref('');
 const spinValue = ref(0);
 const sliderValue = ref(30);
 const progressValue = ref(0);
@@ -299,6 +300,15 @@ onUnmounted(() => {
                             <Slider v-model="sliderValue" orientation="vertical" size="large" />
                             <span class="slider-label">Vertical Scale</span>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="component-section">
+                <h2>Text Area</h2>
+                <div class="component-demo">
+                    <div class="input-row">
+                        <TextArea v-model="textAreaValue" placeholder="Multiline Text" />
                     </div>
                 </div>
             </section>
