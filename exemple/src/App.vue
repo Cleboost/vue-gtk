@@ -13,8 +13,7 @@ const spinValue = ref(0);
 const sliderValue = ref(30);
 const progressValue = ref(0);
 
-// Animation du progress bar
-const animateProgress = () => {
+const animateProgress = (): number => {
     const interval = setInterval(() => {
         progressValue.value += 1;
         if (progressValue.value >= 100) {
@@ -87,27 +86,22 @@ const closeAbout = () => {
 
 const handleDepannage = () => {
     console.log('Dépannage clicked');
-    // Navigation logic here
 };
 
 const handleCredit = () => {
     console.log('Credits clicked');
-    // Navigation logic here
 };
 
 const handleLegal = () => {
     console.log('Legal clicked');
-    // Navigation logic here
 };
 
 const handleRemerciement = () => {
     console.log('Remerciement clicked');
-    // Navigation logic here
 };
 
 const closeApp = () => {
     console.log('App closed');
-    // In a real app, this would close the window
     alert('Application fermée !');
 };
 
@@ -153,7 +147,6 @@ const handleContextMenuItem = (item: any, index: number) => {
     console.log('Menu item clicked:', item.text, 'at index:', index);
 };
 
-// Gestion de la fermeture du menu contextuel
 const handleDocumentClick = (event: MouseEvent) => {
     if (showContextMenu.value) {
         const target = event.target as HTMLElement;
@@ -166,7 +159,7 @@ const handleDocumentClick = (event: MouseEvent) => {
     }
 };
 
-let progressInterval: NodeJS.Timeout | null = null;
+let progressInterval: number | null = null;
 
 onMounted(() => {
     document.addEventListener('click', handleDocumentClick);
@@ -376,8 +369,8 @@ onUnmounted(() => {
                 @close="closeContextMenu"
                 @item-click="handleContextMenuItem"
             />
-        </main>
-    </template>
+    </main>
+</template>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cantarell:ital,wght@0,400;0,700;1,400;1,700&display=swap');
