@@ -1,0 +1,290 @@
+---
+title: "Switch"
+description: "A toggle switch component with v-model support, multiple sizes, and GTK-inspired design."
+---
+
+## Overview
+
+The Switch component is a toggle switch that provides a clean and intuitive way to toggle between on/off states. It follows GTK design principles and supports Vue's v-model for two-way data binding.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `size` | `'small' \| 'medium' \| 'large'` | `'medium'` | Defines the size of the switch |
+| `modelValue` | `boolean` | `true` | The checked state of the switch (use with v-model) |
+
+## Events
+
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `update:modelValue` | `boolean` | Emitted when the switch state changes. Use with v-model for two-way binding |
+
+## Basic Usage
+
+The Switch component uses Vue's v-model for two-way data binding:
+
+```vue
+<template>
+  <div>
+    <Switch v-model="isEnabled" />
+    <p>Switch is: {{ isEnabled ? 'ON' : 'OFF' }}</p>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { Switch } from 'vue-gtk';
+
+const isEnabled = ref(true);
+</script>
+```
+
+## Sizes
+
+The Switch component supports three sizes: `small`, `medium`, and `large`.
+
+```vue
+<template>
+  <div class="switch-demo">
+    <Switch v-model="smallSwitch" size="small" />
+    <Switch v-model="mediumSwitch" size="medium" />
+    <Switch v-model="largeSwitch" size="large" />
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { Switch } from 'vue-gtk';
+
+const smallSwitch = ref(true);
+const mediumSwitch = ref(true);
+const largeSwitch = ref(true);
+</script>
+
+<style scoped>
+.switch-demo {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+</style>
+```
+
+### Size Specifications
+
+- **Small**: 28px × 16px with a 12px thumb
+- **Medium**: 36px × 20px with a 16px thumb (default)
+- **Large**: 44px × 24px with a 20px thumb
+
+## States
+
+### Checked (ON)
+When the switch is checked, it displays a blue background (`#4285f4`) with a white thumb positioned on the right side.
+
+### Unchecked (OFF)
+When unchecked, the switch displays a gray background (`#53555D`) with a light gray thumb (`#CCCED3`) positioned on the left side.
+
+## Complete Example
+
+Here's a comprehensive example showing different use cases:
+
+```vue
+<template>
+  <div class="switch-examples">
+    <!-- Different sizes -->
+    <div class="example-section">
+      <h3>Sizes</h3>
+      <div class="switch-row">
+        <div class="switch-item">
+          <label>Small</label>
+          <Switch v-model="settings.notifications" size="small" />
+        </div>
+        <div class="switch-item">
+          <label>Medium</label>
+          <Switch v-model="settings.darkMode" size="medium" />
+        </div>
+        <div class="switch-item">
+          <label>Large</label>
+          <Switch v-model="settings.autoSave" size="large" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings example -->
+    <div class="example-section">
+      <h3>Settings Panel</h3>
+      <div class="settings-list">
+        <div class="setting-item">
+          <div class="setting-info">
+            <span class="setting-label">Enable notifications</span>
+            <span class="setting-description">Receive alerts and updates</span>
+          </div>
+          <Switch v-model="settings.notifications" />
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <span class="setting-label">Dark mode</span>
+            <span class="setting-description">Use dark theme</span>
+          </div>
+          <Switch v-model="settings.darkMode" />
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <span class="setting-label">Auto-save</span>
+            <span class="setting-description">Save changes automatically</span>
+          </div>
+          <Switch v-model="settings.autoSave" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Display current state -->
+    <div class="example-section">
+      <h3>Current Settings</h3>
+      <pre>{{ JSON.stringify(settings, null, 2) }}</pre>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, watch } from 'vue';
+import { Switch } from 'vue-gtk';
+
+const settings = ref({
+  notifications: true,
+  darkMode: false,
+  autoSave: true
+});
+
+// Watch for changes
+watch(settings, (newSettings) => {
+  console.log('Settings updated:', newSettings);
+}, { deep: true });
+</script>
+
+<style scoped>
+.switch-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 20px;
+}
+
+.example-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.example-section h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.switch-row {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.switch-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.switch-item label {
+  font-size: 14px;
+  color: #666;
+}
+
+.settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}
+
+.setting-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.setting-label {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.setting-description {
+  font-size: 14px;
+  color: #666;
+}
+
+pre {
+  background-color: #f5f5f5;
+  padding: 12px;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+</style>
+```
+
+## Styling
+
+The Switch component features:
+
+- Smooth transitions using cubic-bezier easing
+- Box shadows for depth and visual feedback
+- Hover effects that enhance user interaction
+- Focus outline for keyboard accessibility
+- GTK-inspired color scheme with blue accent color
+
+## Accessibility
+
+- The underlying input element is properly hidden but accessible to screen readers
+- Focus states are clearly visible with a blue outline
+- The component supports keyboard navigation (Space/Enter keys)
+- The label element provides a larger clickable area
+- The switch maintains proper ARIA semantics through the native checkbox input
+
+## Two-way Data Binding
+
+The Switch component fully supports Vue's v-model directive:
+
+```vue
+<template>
+  <Switch v-model="myValue" />
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { Switch } from 'vue-gtk';
+
+const myValue = ref(false);
+</script>
+```
+
+You can also use the explicit syntax if preferred:
+
+```vue
+<template>
+  <Switch 
+    :model-value="myValue" 
+    @update:model-value="myValue = $event" 
+  />
+</template>
+```

@@ -1,0 +1,171 @@
+---
+title: "Button"
+description: "A customizable button component with multiple variants and sizes, following GTK design principles."
+---
+
+## Overview
+
+The Button component is a versatile, styled button that follows GTK (GIMP Toolkit) design principles. It provides multiple size options and visual variants to suit different use cases in your application.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `size` | `'small' \| 'medium' \| 'large'` | `'medium'` | Defines the size of the button |
+| `variant` | `'primary' \| 'secondary' \| 'outline'` | `'primary'` | Defines the visual style of the button |
+| `disabled` | `boolean` | `false` | Disables the button when set to true |
+
+## Events
+
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `click` | `MouseEvent` | Emitted when the button is clicked |
+
+## Variants
+
+### Primary
+The primary variant features a blue background with white text. It's designed for main call-to-action buttons.
+
+```vue
+<template>
+  <Button variant="primary">Primary Button</Button>
+</template>
+
+<script setup>
+import { Button } from 'vue-gtk';
+</script>
+```
+
+### Secondary
+The secondary variant has a light gray background with dark text. It's suitable for secondary actions.
+
+```vue
+<template>
+  <Button variant="secondary">Secondary Button</Button>
+</template>
+
+<script setup>
+import { Button } from 'vue-gtk';
+</script>
+```
+
+### Outline
+The outline variant has a transparent background with a blue border. It's ideal for tertiary actions.
+
+```vue
+<template>
+  <Button variant="outline">Outline Button</Button>
+</template>
+
+<script setup>
+import { Button } from 'vue-gtk';
+</script>
+```
+
+## Sizes
+
+The Button component supports three sizes: `small`, `medium`, and `large`.
+
+```vue
+<template>
+  <div>
+    <Button size="small">Small Button</Button>
+    <Button size="medium">Medium Button</Button>
+    <Button size="large">Large Button</Button>
+  </div>
+</template>
+
+<script setup>
+import { Button } from 'vue-gtk';
+</script>
+```
+
+## Disabled State
+
+Buttons can be disabled by setting the `disabled` prop to `true`.
+
+```vue
+<template>
+  <Button disabled>Disabled Button</Button>
+</template>
+
+<script setup>
+import { Button } from 'vue-gtk';
+</script>
+```
+
+## Complete Example
+
+Here's a complete example demonstrating all the button variants and sizes:
+
+```vue
+<template>
+  <div class="button-demo">
+    <!-- Different variants -->
+    <div class="row">
+      <Button variant="primary" @click="handleClick">Primary</Button>
+      <Button variant="secondary" @click="handleClick">Secondary</Button>
+      <Button variant="outline" @click="handleClick">Outline</Button>
+    </div>
+
+    <!-- Different sizes -->
+    <div class="row">
+      <Button size="small">Small</Button>
+      <Button size="medium">Medium</Button>
+      <Button size="large">Large</Button>
+    </div>
+
+    <!-- Disabled state -->
+    <div class="row">
+      <Button disabled>Disabled Primary</Button>
+      <Button variant="secondary" disabled>Disabled Secondary</Button>
+    </div>
+
+    <!-- With custom content -->
+    <div class="row">
+      <Button>
+        Add Files
+      </Button>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { Button } from 'vue-gtk';
+
+const handleClick = (event) => {
+  console.log('Button clicked!', event);
+};
+</script>
+
+<style scoped>
+.button-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+</style>
+```
+
+## Styling
+
+The Button component uses the Cantarell font family, which is the default font for GTK applications. It features:
+
+- Rounded corners (30px border-radius)
+- Smooth transitions on hover and active states
+- Focus-visible outline for accessibility
+- Box shadows on hover for depth
+- Proper disabled state with reduced opacity
+
+## Accessibility
+
+- The button properly emits click events
+- Disabled buttons have `cursor: not-allowed`
+- Focus-visible state provides a clear outline
+- Supports keyboard navigation (Enter/Space keys work automatically with native button element)
